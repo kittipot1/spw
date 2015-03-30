@@ -10,14 +10,14 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
 	
-	private BufferedImage bi;	
+	private BufferedImage bi;
 	Graphics2D big;
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
 
 	public GamePanel() {
 		bi = new BufferedImage(400, 600, BufferedImage.TYPE_INT_ARGB);
 		big = (Graphics2D) bi.getGraphics();
-		big.setBackground(Color.BLACK);
+		big.setBackground(Color.WHITE);
 	}
 
 	public void updateGameUI(GameReporter reporter){
