@@ -4,7 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.Rectangle2D;
+//import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
+//import java.awt.geom.Ellipse2D;
+import java.awt.geom.Ellipse2D.Double;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -71,7 +74,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		Rectangle2D.Double vr = v.getRectangle();
 		Rectangle2D.Double er;
 		for(Enemy e : enemies){
-			er = e.getRectangle();
+			er = e.getCircle();
 			if(er.intersects(vr)){
 				die();
 				return;
@@ -90,6 +93,12 @@ public class GameEngine implements KeyListener, GameReporter{
 			break;
 		case KeyEvent.VK_RIGHT:
 			v.move(1);
+			break;
+		case KeyEvent.VK_UP:
+			v.movey(-1);
+			break;
+		case KeyEvent.VK_DOWN:
+			v.movey(1);
 			break;
 		case KeyEvent.VK_D:
 			difficulty += 0.1;

@@ -1,8 +1,12 @@
 package f2.spw;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+//import java.awt.geom.*;
+//import java.awt.geom.Rectangle2D;
 import java.awt.geom.Rectangle2D.Double;
+//import java.awt.geom.Ellipse2D;
+import java.awt.geom.Ellipse2D.Double;
+import java.lang.Double;
 
 public abstract class Sprite {
 	int x;
@@ -21,5 +25,9 @@ public abstract class Sprite {
 	
 	public Double getRectangle() {
 		return new Rectangle2D.Double(x, y, width, height);
+	}
+
+	public Double getCircle() {
+		return new Ellipse2D.Double(x, y, width, height);
 	}
 }
