@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+/*import java.awt.geom.Rectangle2D;
+//import java.awt.geom.Rectangle2D.Double;
+import java.awt.geom.Ellipse2D;
+//import java.awt.geom.Ellipse2D.Double;*/
 //import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
-//import java.awt.geom.Ellipse2D;
-import java.awt.geom.Ellipse2D.Double;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -21,7 +23,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	private SpaceShip v;	
 	
 	private Timer timer;
-	
+	private int invulnerable_time=0;
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -53,6 +55,8 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 	
 	private void process(){
+		if(invulnerable_time>0)
+			invulnerable_time--;
 		if(Math.random() < difficulty){
 			generateEnemy();
 		}
@@ -71,13 +75,18 @@ public class GameEngine implements KeyListener, GameReporter{
 		
 		gp.updateGameUI(this);
 		
-		Rectangle2D.Double vr = v.getRectangle();
-		Rectangle2D.Double er;
+		Ellipse2D.Double vr = v.getCircle();
+		Ellipse2D.Double er;
 		for(Enemy e : enemies){
 			er = e.getCircle();
-			if(er.intersects(vr)){
-				die();
-				return;
+			if(er.intersects(vr.getX(), vr.getY(), vr.getWidth(), vr.getHeight())){
+				if(invulnerable_time==0){
+					v.weaken();
+					invulnerable_time=50;
+					if(v.hp==0)
+						die();
+						return;	
+				}
 			}
 		}
 	}
@@ -108,6 +117,10 @@ public class GameEngine implements KeyListener, GameReporter{
 
 	public long getScore(){
 		return score;
+	}
+
+	public int invulnerable_time(){
+		return invulnerable_time;
 	}
 	
 	@Override

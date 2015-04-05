@@ -25,7 +25,7 @@ public class Enemy extends Sprite{
 					(float)(Y_TO_DIE - y)/(Y_TO_DIE - Y_TO_FADE)));
 		}
 		g.setColor(Color.RED);
-		g.fillRect(x, y, width, height);
+		g.fillOval(x, y, width, height);
 		
 	}
 

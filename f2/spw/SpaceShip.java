@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class SpaceShip extends Sprite{
-
+	int hp = 4;
 	int step = 8;
 	
 	public SpaceShip(int x, int y, int width, int height) {
@@ -17,6 +17,10 @@ public class SpaceShip extends Sprite{
 		g.setColor(Color.GREEN);
 		g.fillRect(x, y, width, height);
 		
+	}
+
+	public void weaken(){
+		hp--;
 	}
 
 	public void move(int direction){
