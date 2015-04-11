@@ -10,10 +10,11 @@ public class Bullet extends Sprite{
 	
 	private int step = 30;
 	private boolean alive = true;
+	private int direction;
 	
-	public Bullet(int x, int y) {
+	public Bullet(int x, int y,int direction) {
 		super(x, y, 10, 10);
-		
+		this.direction = direction;
 	}
 
 	@Override
@@ -24,12 +25,13 @@ public class Bullet extends Sprite{
 			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 
 					(float)(Y_TO_DIE - y)/(Y_TO_DIE - Y_TO_FADE)));
 		}*/
-		g.setColor(Color.RED);
+		g.setColor(Color.GREEN);
 		g.fillOval(x, y, width, height);
 		
 	}
 
 	public void proceed(){
+		x += direction; 
 		y -= step;
 		if(y < Y_TO_DIE){
 			alive = false;

@@ -50,9 +50,11 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 
 	private void generateBullet(){
-		Bullet b = new Bullet(v.x, v.y);
-		gp.sprites.add(b);
-		bullets.add(b);
+		for(int i=0;i<7;i++){
+			Bullet b = new Bullet(v.x, v.y, i*5-15); //(i*5)-10
+			gp.sprites.add(b);
+			bullets.add(b);
+		}
 	}
 	
 	private void generateEnemy(){
@@ -95,6 +97,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		
 		Ellipse2D.Double vr = v.getCircle();
 		Ellipse2D.Double er;
+		Ellipse2D.Double br;
 		for(Enemy e : enemies){
 			er = e.getCircle();
 			if(er.intersects(vr.getX(), vr.getY(), vr.getWidth(), vr.getHeight())){
@@ -105,6 +108,11 @@ public class GameEngine implements KeyListener, GameReporter{
 						die();
 						return;	
 				}
+			}
+			for(Bullet b : bullets){
+				br = b.getCircle();
+				if(br.intersects(er.getX(), er.getY(), er.getWidth(), er.getHeight()))
+					e.die();
 			}
 		}
 	}
