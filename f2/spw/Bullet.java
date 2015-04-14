@@ -13,7 +13,7 @@ public class Bullet extends Sprite{
 	private int direction;
 	
 	public Bullet(int x, int y,int direction) {
-		super(x, y, 10, 10);
+		super(x, y, 20, 20);
 		this.direction = direction;
 	}
 
