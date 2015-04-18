@@ -31,6 +31,11 @@ public class SpaceShip extends Sprite{
 				x = 400 - width;
 	}
 
+	public void heal(){
+		if(hp<4)
+			hp++;
+	}
+
 	public void movey(int ydirection){
 			y += (step * ydirection);
 			if(y < 0)

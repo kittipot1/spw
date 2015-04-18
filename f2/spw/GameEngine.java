@@ -21,10 +21,13 @@ public class GameEngine implements KeyListener, GameReporter{
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
 	private ArrayList<Bullet> bullets = new ArrayList<Bullet>();	
+	private ArrayList<Item> items = new ArrayList<Item>();
+
 	private SpaceShip v;	
 	
 	private Timer timer;
 	private int invulnerable_time=0;
+	private int shooting_delay=0;
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -50,10 +53,13 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 
 	private void generateBullet(){
-		for(int i=0;i<7;i++){
-			Bullet b = new Bullet(v.x, v.y, i*5-15); //(i*5)-10
-			gp.sprites.add(b);
-			bullets.add(b);
+		if(shooting_delay==0){
+			for(int i=0;i<7;i++){
+				Bullet b = new Bullet(v.x, v.y, i*5-15); //(i*5)-10
+				gp.sprites.add(b);
+				bullets.add(b);
+			}
+			shooting_delay = 50;
 		}
 	}
 	
@@ -62,12 +68,25 @@ public class GameEngine implements KeyListener, GameReporter{
 		gp.sprites.add(e);
 		enemies.add(e);
 	}
+
+	private void generateItem(){
+		Item t = new Item((int)(Math.random()*390), 30);
+		gp.sprites.add(t);
+		items.add(t);
+	}
 	
 	private void process(){
 		if(invulnerable_time>0)
 			invulnerable_time--;
+		if(shooting_delay>0)
+			shooting_delay--;
+
 		if(Math.random() < difficulty){
 			generateEnemy();
+		}
+
+		if(Math.random() < 0.05){
+			generateItem();
 		}
 		
 		Iterator<Enemy> e_iter = enemies.iterator();
@@ -92,12 +111,24 @@ public class GameEngine implements KeyListener, GameReporter{
 				gp.sprites.remove(b);
 			}
 		}
+
+		Iterator<Item> t_iter = items.iterator();
+		while(t_iter.hasNext()){
+			Item t = t_iter.next();
+			t.proceed();
+			
+			if(!t.isAlive()){
+				t_iter.remove();
+				gp.sprites.remove(t);
+			}
+		}
 		
 		gp.updateGameUI(this);
 		
 		Ellipse2D.Double vr = v.getCircle();
 		Ellipse2D.Double er;
 		Ellipse2D.Double br;
+		Ellipse2D.Double tr;
 		for(Enemy e : enemies){
 			er = e.getCircle();
 			if(er.intersects(vr.getX(), vr.getY(), vr.getWidth(), vr.getHeight())){
@@ -115,6 +146,11 @@ public class GameEngine implements KeyListener, GameReporter{
 					e.die();
 			}
 		}
+		for(Item t : items){
+				tr = t.getCircle();
+				if(tr.intersects(vr.getX(), vr.getY(), vr.getWidth(), vr.getHeight()))
+					v.heal();
+			}
 	}
 	
 	public void die(){
