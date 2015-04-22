@@ -33,6 +33,8 @@ public class Bullet extends Sprite{
 	public void proceed(){
 		x += direction; 
 		y -= step;
+		if(x > 385)
+			alive = false;
 		if(y < Y_TO_DIE){
 			alive = false;
 		}

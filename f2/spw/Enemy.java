@@ -37,6 +37,8 @@ public class Enemy extends Sprite{
 				super.x-=(int)(Math.random()*7);
 		}
 		y += step;
+		if(super.x > 385)
+			alive = false;
 		if(y > Y_TO_DIE){
 			alive = false;
 		}

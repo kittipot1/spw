@@ -149,6 +149,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Item t : items){
 				tr = t.getCircle();
 				if(tr.intersects(vr.getX(), vr.getY(), vr.getWidth(), vr.getHeight()))
+					t.die();
 					v.heal();
 			}
 	}

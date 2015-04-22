@@ -22,10 +22,15 @@ public class GamePanel extends JPanel {
 
 	public void updateGameUI(GameReporter reporter){
 		big.clearRect(0, 0, 700, 600);
+
+		big.setColor(Color.BLACK);	
+		big.fillRect ( 400, 0, 300, 600 );
 		
-		big.setColor(Color.BLACK);		
-		big.drawString(String.format("%08d", reporter.getScore()), 300, 20);
-		big.drawString(String.format("%2d", reporter.invulnerable_time()), 100, 20);
+		big.setColor(Color.WHITE);		
+		big.drawString("SCORE :", 450, 100);
+		big.drawString(String.format("%08d", reporter.getScore()), 510, 100);
+		big.drawString("Invulnerable :", 450, 120);
+		big.drawString(String.format("%2d", reporter.invulnerable_time()), 530, 120);
 		for(Sprite s : sprites){
 			s.draw(big);
 		}
