@@ -135,9 +135,10 @@ public class GameEngine implements KeyListener, GameReporter{
 				if(invulnerable_time==0){
 					v.weaken();
 					invulnerable_time=50;
-					if(v.hp==0)
+					if(v.hp==0){
 						die();
 						return;	
+					}
 				}
 			}
 			for(Bullet b : bullets){
@@ -148,10 +149,11 @@ public class GameEngine implements KeyListener, GameReporter{
 		}
 		for(Item t : items){
 				tr = t.getCircle();
-				if(tr.intersects(vr.getX(), vr.getY(), vr.getWidth(), vr.getHeight()))
+				if(tr.intersects(vr.getX(), vr.getY(), vr.getWidth(), vr.getHeight())){
 					t.die();
 					v.heal();
-			}
+				}
+		}
 	}
 	
 	public void die(){

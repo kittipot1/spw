@@ -5,7 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
+import java.awt.Toolkit;
+import java.awt.Image;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
@@ -13,6 +14,7 @@ public class GamePanel extends JPanel {
 	private BufferedImage bi;
 	Graphics2D big;
 	ArrayList<Sprite> sprites = new ArrayList<Sprite>();
+	//Image img = Toolkit.getDefaultToolkit().getImage("heart.png");
 
 	public GamePanel() {
 		bi = new BufferedImage(700, 600, BufferedImage.TYPE_INT_ARGB);
@@ -22,11 +24,13 @@ public class GamePanel extends JPanel {
 
 	public void updateGameUI(GameReporter reporter){
 		big.clearRect(0, 0, 700, 600);
+		
 
 		big.setColor(Color.BLACK);	
 		big.fillRect ( 400, 0, 300, 600 );
 		
 		big.setColor(Color.WHITE);		
+		big.drawString("HP :", 450, 80);
 		big.drawString("SCORE :", 450, 100);
 		big.drawString(String.format("%08d", reporter.getScore()), 510, 100);
 		big.drawString("Invulnerable :", 450, 120);
@@ -35,6 +39,9 @@ public class GamePanel extends JPanel {
 			s.draw(big);
 		}
 		
+
+		//big.drawImage(img, 450, 50, 20, 20, null); 
+
 		repaint();
 	}
 

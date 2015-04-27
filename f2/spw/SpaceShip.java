@@ -2,11 +2,14 @@ package f2.spw;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.Image;
 
 public class SpaceShip extends Sprite{
 	int hp = 4;
 	int step = 8;
-	
+	Image img = Toolkit.getDefaultToolkit().getImage("heart.png");
+
 	public SpaceShip(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		
@@ -16,7 +19,10 @@ public class SpaceShip extends Sprite{
 	public void draw(Graphics2D g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(x, y, width, height);
-		
+		for(int i=0;i<hp-1;i++){
+			g.drawImage(img, 475 +i*25, 63, 20, 20, null);
+		}
+		 
 	}
 
 	public void weaken(){
