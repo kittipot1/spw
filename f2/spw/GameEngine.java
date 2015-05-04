@@ -31,6 +31,8 @@ public class GameEngine implements KeyListener, GameReporter{
 	private long score = 0;
 	private double difficulty = 0.1;
 	
+	private boolean gameover = false;
+
 	public GameEngine(GamePanel gp, SpaceShip v) {
 		this.gp = gp;
 		this.v = v;		
@@ -158,6 +160,24 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	public void die(){
 		timer.stop();
+		gameover = true;
+	}
+
+	public void	reset(){
+		for(Enemy e : enemies){
+			e.die();
+		}
+		for(Item i : items){
+			i.die();
+		}
+		for(Bullet b : bullets){
+			b.die();
+		}
+		score = 0;
+		invulnerable_time = 0;
+		v.setDefault();
+		v.heal_full();
+		
 	}
 	
 	void controlVehicle(KeyEvent e) {
@@ -179,6 +199,13 @@ public class GameEngine implements KeyListener, GameReporter{
 			break;
 		case KeyEvent.VK_SPACE:
 			generateBullet();
+			break;
+		case KeyEvent.VK_R:
+			if(gameover){
+				reset();
+				gameover = false;
+				timer.start();
+			}
 			break;
 		}
 	}

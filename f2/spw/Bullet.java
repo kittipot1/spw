@@ -40,6 +40,10 @@ public class Bullet extends Sprite{
 		}
 	}
 	
+	public void die(){
+		alive = false;
+	}
+
 	public boolean isAlive(){
 		return alive;
 	}

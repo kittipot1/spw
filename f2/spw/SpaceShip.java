@@ -42,6 +42,15 @@ public class SpaceShip extends Sprite{
 			hp++;
 	}
 
+	public void heal_full(){
+		hp = 4;
+	}
+
+	public void setDefault(){
+		super.x = 180;
+		super.y = 550;
+	}
+
 	public void movey(int ydirection){
 			y += (step * ydirection);
 			if(y < 0)
